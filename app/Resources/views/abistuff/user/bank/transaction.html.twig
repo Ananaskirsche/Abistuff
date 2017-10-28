@@ -1,0 +1,38 @@
+{% extends "abistuff/baselayout.html.twig" %}
+
+{% block title %}Neue Transaktion{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('lib/styles/bootstrap-datepicker.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Neue Transaktion hinzufügen</h3>
+            </div>
+            <div class="panel-body">
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('lib/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('lib/js/bootstrap-datepicker.de.min.js') }}"></script>
+
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $('#form_date').datepicker({
+                language: 'de',
+                todayHighlight: true,
+                format: 'dd.mm.yyyy',
+                autoclose: true
+            });
+        });
+    </script>
+{% endblock %}
+
+

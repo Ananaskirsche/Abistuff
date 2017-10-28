@@ -1,0 +1,72 @@
+{% extends "abistuff/baselayout.html.twig" %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <th>Loginname</th>
+                <th>Benutzername</th>
+                <th>Rolle</th>
+                <th>Aktiv</th>
+                <th>Sichtbar</th>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr class="accordion-toggle" data-toggle="collapse" data-target="#{{ user.id }}">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.displayname }}</td>
+                        <td>
+                            {% if user.roles[0] == 'ROLE_ADMIN' %}
+                                Administrator
+                            {% else %}
+                                Benutzer
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.active == 1 %}
+                                Ja
+                            {% else %}
+                                Nein
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.visible == 1 %}
+                                Ja
+                            {% else %}
+                                Nein
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr >
+                        <td colspan="6" class="hiddenRow">
+                            <div class="accordian-body collapse" id="{{ user.id }}">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <b>Benutzer-ID:</b>
+                                            </div>
+                                            <div class="col-xs-9 left-align">
+                                                {{ user.id }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <div class="btn-group-vertical">
+                                            <a class="btn btn-primary btn-md btn-block" href="{{ path('edit_user', {'id': user.id} ) }}">Bearbeiten</a>
+                                            <a class="btn btn-danger btn-md btn-block" href="{{ path('delete_user', {'id': user.id} ) }}">Löschen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
