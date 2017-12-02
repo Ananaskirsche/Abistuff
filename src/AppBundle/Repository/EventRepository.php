@@ -1,15 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fatih
- * Date: 13.11.17
- * Time: 19:04
- */
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
 
-class EventRepository
+class EventRepository extends EntityRepository
 {
+    public function getEventsFromTo(\DateTime $startDate, \DateTime $endDate)
+    {
+        $endDate = $endDate->add(new \DateInterval('P1M'));
 
+        $query = $this->createQueryBuilder('e')
+            ->where('e.startDate >= :startDate')
+            ->setParameter('startDate', $startDate)
+            ->andWhere('e.endDate <= :endDate')
+            ->setParameter('endDate', $endDate)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

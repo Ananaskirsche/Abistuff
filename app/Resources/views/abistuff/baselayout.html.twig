@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('lib/styles/bootstrap-theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset("lib/styles/font-awesome.min.css") }}">
     <link rel="stylesheet" href="{{ asset("lib/styles/main.css") }}">
+    <script src="{{ asset('lib/js/jquery.min.js') }}"></script>
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -38,7 +39,13 @@
                     </li>
 
 
-                    <li class="{% if app.request.PathInfo == path('events') %}active{% endif %}"><a href="{{ path("events") }}"><i class="fa fa-calendar-o" aria-hidden="true"></i>&emsp;Veranstaltungen</a></li>
+                    <li class="dropdown {% if app.request.PathInfo in [path('calendar'), path('events')] %}active{% endif %}">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("calendar") }}"><i class="fa fa-calendar" aria-hidden="true"></i>&emsp;Kalender&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path("calendar") }}"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Kalender</a></li>
+                            <li><a href="{{ path("new_event") }}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;Kalendereintrag hinzufügen</a></li>
+                        </ul>
+                    </li>
 
 
                     {% if is_granted("ROLE_ADMIN") %}
@@ -99,8 +106,7 @@
         </footer>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('lib/js/bootstrap.min.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

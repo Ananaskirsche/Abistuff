@@ -21,6 +21,7 @@ class BankTransaction
     /**
      * @ORM\Column(type="decimal", scale=2, precision=10)
      * @Assert\NotBlank()
+     * @Assert\NotEqualTo(value=0)
      */
     private $value;
 
@@ -40,17 +41,17 @@ class BankTransaction
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="initiator", referencedColumnName="id")
      * @Assert\NotBlank()
      */
     private $initiator;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="EAGER")
-     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * @Assert\NotBlank()
      */
-    private $creator;
+    private $createdBy;
 
     public function getId()
     {
@@ -99,11 +100,11 @@ class BankTransaction
 
     public function getCreator()
     {
-        return $this->creator;
+        return $this->createdBy;
     }
 
     public function setCreator($creator)
     {
-        $this->creator = $creator;
+        $this->createdBy = $creator;
     }
 }
