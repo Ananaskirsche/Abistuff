@@ -16,64 +16,69 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
 
-            {# NAVIGATION HEADER#}
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
+            {% if is_granted("ROLE_USER") %}
 
-                <ul class="nav navbar-nav">
-                    <li class="{% if app.request.PathInfo == path('dashboard') %}active{% endif %}"><a href="{{ path("dashboard") }}"><i class="fa fa-th-large" aria-hidden="true"></i>&emsp;Dashboard</a></li>
+                {# NAVIGATION HEADER#}
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="{% if app.request.PathInfo == path('dashboard') %}active{% endif %}"><a href="{{ path("dashboard") }}"><i class="fa fa-th-large" aria-hidden="true"></i>&emsp;Dashboard</a></li>
 
-
-                    <li class="dropdown {% if app.request.PathInfo in [path('bankdetails'), path('new_transaction')] %}active{% endif %}">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("bankdetails") }}"><i class="fa fa-eur" aria-hidden="true"></i>&emsp;Kontodetails&nbsp;<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path("bankdetails") }}"><i class="fa fa-eur" aria-hidden="true"></i>&emsp;Kontodetails</a></li>
-                            <li><a href="{{ path("new_transaction") }}"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;Transaktion hinzufügen</a></li>
-                        </ul>
-                    </li>
-
-
-                    <li class="dropdown {% if app.request.PathInfo in [path('calendar'), path('events')] %}active{% endif %}">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("calendar") }}"><i class="fa fa-calendar" aria-hidden="true"></i>&emsp;Kalender&nbsp;<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path("calendar") }}"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Kalender</a></li>
-                            <li><a href="{{ path("new_event") }}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;Kalendereintrag hinzufügen</a></li>
-                        </ul>
-                    </li>
-
-
-                    {% if is_granted("ROLE_ADMIN") %}
-                        <li class="dropdown {% if app.request.PathInfo in [path('create_user'), path('list_users')] %}active{% endif %}">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fa fa-server" aria-hidden="true"></i>&emsp;Administration&nbsp;<span class="caret"></span></a>
+                        <li class="dropdown {% if app.request.PathInfo in [path('bankdetails'), path('new_transaction')] %}active{% endif %}">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("bankdetails") }}"><i class="fa fa-eur" aria-hidden="true"></i>&emsp;Kontodetails&nbsp;<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ path("create_user") }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&emsp;Benutzer erstellen</a></li>
-                                <li><a href="{{ path("list_users") }}"><i class="fa fa-group" aria-hidden="true"></i>&emsp;Benutzerliste</a></li>
+                                <li><a href="{{ path("bankdetails") }}"><i class="fa fa-eur" aria-hidden="true"></i>&emsp;Kontodetails</a></li>
+                                <li><a href="{{ path("new_transaction") }}"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;Transaktion hinzufügen</a></li>
                             </ul>
                         </li>
-                    {% endif %}
+
+                        <li class="dropdown {% if app.request.PathInfo in [path('calendar'), path('events')] %}active{% endif %}">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("calendar") }}"><i class="fa fa-calendar" aria-hidden="true"></i>&emsp;Kalender&nbsp;<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path("calendar") }}"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Kalender</a></li>
+                                <li><a href="{{ path("new_event") }}"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>&nbsp;Kalendereintrag hinzufügen</a></li>
+                            </ul>
+                        </li>
 
 
-                    <li class="{% if app.request.PathInfo == false %}active{% endif %}"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&emsp;Ausloggen</a></li>
-                </ul>
-                {# /NAVIGATION HEADER#}
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <li class="dropdown {% if app.request.PathInfo in [path('create_user'), path('list_users')] %}active{% endif %}">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fa fa-server" aria-hidden="true"></i>&emsp;Administration&nbsp;<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path("create_user") }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&emsp;Benutzer erstellen</a></li>
+                                    <li><a href="{{ path("list_users") }}"><i class="fa fa-group" aria-hidden="true"></i>&emsp;Benutzerliste</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
 
-                {# NAVIGATION HEADER DROPDOWN#}
+                        <li class="{% if app.request.PathInfo == false %}active{% endif %}"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&emsp;Ausloggen</a></li>
+                    </ul>
+                    {# /NAVIGATION HEADER#}
+
+                    {# NAVIGATION HEADER DROPDOWN#}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown {% if app.request.PathInfo == path('change_passwd') %}active{% endif %}">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{ app.user.displayname }}&nbsp;<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path("change_passwd") }}"><i class="fa fa-key" aria-hidden="true"></i>&emsp;Passwort ändern</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {# NAVIGATION HEADER DROPDOWN#}
+                </div>
+            {% else %}
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown {% if app.request.PathInfo == path('change_passwd') %}active{% endif %}">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{ app.user.displayname }}&nbsp;<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path("change_passwd") }}"><i class="fa fa-key" aria-hidden="true"></i>&emsp;Passwort ändern</a></li>
-                        </ul>
+                        <a aria-expanded="false" role="button" href="{{ path("login") }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Login</a>
                     </li>
                 </ul>
-                {# NAVIGATION HEADER DROPDOWN#}
-            </div>
+            {% endif %}
         </div>
     </div>
     <br>

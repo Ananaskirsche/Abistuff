@@ -1,0 +1,75 @@
+{% extends "abistuff/baselayout.html.twig" %}
+
+{% block title %}Kontodetails{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h2><u>Finanzübersicht des Abijahrgangs 2019</u></h2>
+
+
+        Der Endstand beläuft sich auf {{ sum }}€.
+
+        <table class="table table-bordered table-responsive">
+            <thead>
+            <th>#</th>
+            <th>Wert</th>
+            <th>Verwendungszweck</th>
+            <th>Datum</th>
+            <th>Verantwortlicher</th>
+            </thead>
+            <tbody>
+            {% for transaction in transactions %}
+                <tr class="{% if transaction.value >= 0 %}success{% else %}danger{% endif %} accordion-toggle" data-toggle="collapse" data-target="#{{ transaction.id }}">
+                    <td><b>
+                            {% if transaction.value >= 0 %}
+                                +
+                            {% else %}
+                                -
+                            {% endif %}
+                        </b></td>
+                    <td>{{ transaction.value }}€</td>
+                    <td>{{ transaction.note|length > 80 ? transaction.note|slice(0, 80) ~ '...' : transaction.note  }}</td>
+                    <td>{{ transaction.date|date("d.m.Y") }}</td>
+                    <td>{{ transaction.initiator.displayname }}</td>
+                </tr>
+
+                <tr >
+                    <td colspan="6" class="hiddenRow">
+                        <div class="accordian-body collapse" id="{{ transaction.id }}">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Verwendungszweck:</b>
+                                        </div>
+                                        <div class="col-xs-8 left-align">
+                                            {{ transaction.note }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Erstellt von:</b>
+                                        </div>
+                                        <div class="col-xs-8 left-align">
+                                            {{ transaction.creator.displayname }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <b>Transaktions-ID:</b>
+                                        </div>
+                                        <div class="col-xs-8 left-align">
+                                            {{ transaction.id }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -2,10 +2,8 @@
 
 namespace AppBundle\Controller\User\Bank;
 
-
 use AppBundle\Entity\BankTransaction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,7 +12,6 @@ class BankController extends Controller
 {
     /**
      * @Route("/user/bankdetails", name="bankdetails")
-     * @Security("has_role('ROLE_USER')")
      */
     public function showAction(Request $request, UserInterface $user)
     {

@@ -14,7 +14,7 @@ class CalendarController extends Controller
      */
     public function showAction(Request $request)
     {
-        return $this->render("/abistuff/user/events/calendar.html.twig", array("isAdmin" => false));
+        return $this->render("/abistuff/user/events/calendar.html.twig");
     }
 
     /**
