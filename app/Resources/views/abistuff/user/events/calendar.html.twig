@@ -1,0 +1,40 @@
+{% extends "abistuff/baselayout.html.twig" %}
+
+{% block title %}Veranstaltungen{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('lib/styles/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/styles/fullcalendar.print.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div id='calendar'></div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('lib/js/moment.min.js') }}"></script>
+    <script src="{{ asset('lib/js/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('lib/js/fullcalendar-de.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay',
+                    ignoreTimezone: false
+                },
+                selectable: true,
+                selectHelper: true,
+                editable: true,
+                events: 'events',
+                dayClick: function (date, jsEvent, view) {
+                    alert('Clicked on: ' + date.format());
+                }
+            });
+        });
+    </script>
+{% endblock %}
