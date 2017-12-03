@@ -18,7 +18,7 @@ class CalendarController extends Controller
     }
 
     /**
-     * @Route("/user/events", name="get_events")
+     * @Route("/user/get_events", name="get_events")
      */
     public function getEvents(Request $request)
     {
