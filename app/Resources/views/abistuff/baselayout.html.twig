@@ -57,7 +57,7 @@
                             </li>
                         {% endif %}
 
-                        <li class="{% if app.request.PathInfo == false %}active{% endif %}"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&emsp;Ausloggen</a></li>
+                        <li class="{% if app.request.PathInfo == false %}active{% endif %}"><a href="{{  logout_path() }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&emsp;Ausloggen</a></li>
                     </ul>
                     {# /NAVIGATION HEADER#}
 
