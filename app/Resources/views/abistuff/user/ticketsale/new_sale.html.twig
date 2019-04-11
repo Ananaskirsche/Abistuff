@@ -1,6 +1,6 @@
 {% extends "abistuff/baselayout.html.twig" %}
 
-{% block title %}Neue Transaktion{% endblock %}
+{% block title %}Verkauf hinzufügen{% endblock %}
 
 {% block head %}
     <link rel="stylesheet" href="{{ asset('lib/styles/bootstrap-datepicker.min.css') }}">
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Neue Transaktion hinzufügen</h3>
+                <h3 class="panel-title">Neuen Verkauf hinzufügen</h3>
             </div>
             <div class="panel-body">
                 {{ form(form) }}
@@ -29,10 +29,10 @@
                 language: 'de',
                 todayHighlight: true,
                 format: 'dd.mm.yyyy',
-                autoclose: true
+                autoclose: true,
+                disableTouchKeyboard: true,
+                clearBtn: true
             });
         });
     </script>
 {% endblock %}
-
-

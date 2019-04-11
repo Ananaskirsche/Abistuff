@@ -7,14 +7,13 @@
         Der Endstand beläuft sich auf {{ sum }}€.
 
         <table class="table table-bordered table-responsive">
-            <thead>
+            <tr>
                 <th>#</th>
                 <th>Wert</th>
                 <th>Verwendungszweck</th>
                 <th>Datum</th>
                 <th>Verantwortlicher</th>
-            </thead>
-            <tbody>
+            </tr>
                 {% for transaction in transactions %}
                 <tr class="{% if transaction.value >= 0 %}success{% else %}danger{% endif %} accordion-toggle" data-toggle="collapse" data-target="#{{ transaction.id }}">
                     <td><b>
@@ -76,7 +75,6 @@
                     </td>
                 </tr>
                 {% endfor %}
-            </tbody>
         </table>
     </div>
 {% endblock %}

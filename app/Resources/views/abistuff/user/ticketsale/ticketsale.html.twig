@@ -1,0 +1,144 @@
+{% extends "abistuff/baselayout.html.twig" %}
+
+{% block title %}Kartenverkauf{% endblock %}
+
+{% block body %}
+    <div class="container">
+        Es wurden bereits {{ soldTickets }} Tickets verkauft.
+
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>K&auml;ufer</th>
+                    <th>Anzahl</th>
+                    <th>Erhalten am</th>
+                    <th>Bezahlt am</th>
+                    <th>Bar bezahlt?</th>
+                    <th>Verkäufer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+
+                    {% if null in [ticket.erhaltenAm, ticket.bezahltAm] %}
+                        {% if (ticket.erhaltenAm is not null) and (ticket.bezahltAm is null or empty) %}
+                            {% set color = "danger" %}
+                        {% else %}
+                            {% set color = "warning" %}
+                        {% endif %}
+                    {% else %}
+                        {% set color = "success" %}
+                    {% endif %}
+
+
+
+                    <tr class="{{ color }}">
+                        <td><input class="checkbox" type="checkbox" data-id="{{ ticket.id }}"></td>
+                        <td>{{ ticket.kaeufer }}</td>
+                        <td>{{ ticket.anzahl }}</td>
+                        <td>
+                            {% if ticket.erhaltenAm is not null%}
+                                {{ ticket.erhaltenAm|date('d.m.Y') }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if ticket.bezahltAm is not null%}
+                                {{ ticket.bezahltAm|date('d.m.Y') }}
+                            {% endif %}
+                        </td>
+                        <td>{{ ticket.barBezahlt ? 'Ja' : 'Nein'}}</td>
+                        <td>{{ ticket.createdBy.displayname }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="text-align: right;">
+            <a id="edit" class="btn btn-default"><i class="far fa-edit"></i>&nbsp;&nbsp;Eintrag bearbeiten</a>
+            <a id="updatePayedCards" class="btn btn-default"><i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Karten bezahlt</a>
+            <a id="updateHandedCards" class="btn btn-default" ><i class="fas fa-truck-loading"></i>&nbsp;&nbsp;Karten erhalten</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="application/javascript">
+
+        document.getElementById('edit').onclick = function()
+        {
+            var checkboxes = Array.from(document.querySelectorAll('input.checkbox'));
+
+            console.log(checkboxes);
+
+            //Die erste Checkbox nehmen, die ausgewählt ist
+            checkedId = checkboxes.find(function (element)
+            {
+                if(element.checked)
+                {
+                    return element.dataset.id;
+                }
+            });
+
+            console.log(checkedId.dataset.id);
+
+            //Edit-Seite öffnen
+            window.location = '/user/ticketsale/edit/' + checkedId.dataset.id;
+        };
+
+        document.getElementById('updatePayedCards').onclick = function()
+        {
+            var idArray = getCheckedIds();
+            if(idArray.length > 0)
+            {
+                updateCards(idArray, '{{ url('updatePayedCards') }}');
+            }
+        };
+
+        document.getElementById('updateHandedCards').onclick =  function()
+        {
+            var idArray = getCheckedIds();
+            if(idArray.length > 0)
+            {
+                updateCards(idArray, '{{ url('updateHandedCards') }}');
+            }
+        };
+
+
+        function getCheckedIds()
+        {
+            var idArray = [];
+            var checkboxes = document.querySelectorAll('input.checkbox');
+
+            checkboxes.forEach(function (checkbox)
+            {
+                if(checkbox.checked)
+                {
+                    idArray.push(parseInt(checkbox.dataset.id));
+                }
+            });
+
+            return idArray;
+        }
+
+        function updateCards(idArray, url)
+        {
+            $.ajax(url, {
+                cache: false,
+                method: 'POST',
+                async: true,
+                contentType: 'application/json',
+                data: JSON.stringify(idArray),
+                dataType: 'json',
+                success: function(data){
+                    location.reload();
+                },
+                error: function (err) {
+                    alert('Ein Fehler ist aufgetreten!');
+                    console.log(err);
+                }
+
+            });
+        }
+    </script>
+{% endblock %}
