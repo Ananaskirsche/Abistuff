@@ -48,7 +48,9 @@
                                             <b>Erstellt von:</b>
                                         </div>
                                         <div class="col-xs-8 left-align">
-                                            {{ transaction.creator.displayname }}
+                                            {% if transaction.creator != null %}
+                                                {{ transaction.creator.displayname }}
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="row">
