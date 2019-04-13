@@ -15,6 +15,7 @@
                     <th>Erhalten am</th>
                     <th>Bezahlt am</th>
                     <th>Bar bezahlt?</th>
+                    <th>Offizielle Karte/Laufkarte</th>
                     <th>Verkäufer</th>
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
                             {% endif %}
                         </td>
                         <td>{{ ticket.barBezahlt ? 'Ja' : 'Nein'}}</td>
+                        <td>{{ ticket.stammkarte ? 'Offizielle Karte' : 'Laufkarte' }}</td>
                         <td>{{ ticket.createdBy.displayname }}</td>
                     </tr>
                 {% endfor %}

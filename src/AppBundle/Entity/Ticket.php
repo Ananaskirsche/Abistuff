@@ -48,6 +48,12 @@ class Ticket
     private $barBezahlt;
 
     /**
+     * @ORM\Column(type="boolean", options={"default": 1})
+     * @Assert\NotBlank()
+     */
+    private $stammkarte;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * @Assert\NotBlank()
@@ -60,6 +66,22 @@ class Ticket
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStammkarte()
+    {
+        return $this->stammkarte;
+    }
+
+    /**
+     * @param mixed $stammkarte
+     */
+    public function setStammkarte($stammkarte)
+    {
+        $this->stammkarte = $stammkarte;
     }
 
     /**
