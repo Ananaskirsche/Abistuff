@@ -2,11 +2,15 @@
 
 {% block title %}Kartenverkauf{% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('lib/styles/tablesort.css') }}">
+{% endblock %}
+
 {% block body %}
     <div class="container">
         Es wurden bereits {{ soldTickets }} Tickets verkauft.
 
-        <table class="table table-bordered table-responsive">
+        <table class="table table-bordered table-responsive" id="table">
             <thead>
                 <tr>
                     <th>#</th>
@@ -65,7 +69,12 @@
 {% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript" src="{{ asset('lib/js/tablesort.min.js') }}"></script>
     <script type="application/javascript">
+
+        $(document).ready(function() {
+            new Tablesort(document.getElementById('table'));
+        });
 
         document.getElementById('edit').onclick = function()
         {
@@ -132,7 +141,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(idArray),
                 dataType: 'json',
-                success: function(data){
+                success: function(){
                     location.reload();
                 },
                 error: function (err) {
