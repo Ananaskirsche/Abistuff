@@ -100,7 +100,7 @@ class SellController extends Controller
             return $this->redirectToRoute('ticketsale');
         }
 
-        return $this->render('/abistuff/user/ticketsale/new_sale.html.twig', array('form' => $form->createView()));
+        return $this->render('/abistuff/user/ticketsale/sale.html.twig', array('form' => $form->createView()));
     }
 
 
@@ -272,6 +272,6 @@ class SellController extends Controller
             return $this->redirectToRoute('ticketsale');
         }
 
-        return $this->render('/abistuff/user/ticketsale/new_sale.html.twig', array('form' => $form->createView()));
+        return $this->render('/abistuff/user/ticketsale/sale.html.twig', array('form' => $form->createView()));
     }
 }
