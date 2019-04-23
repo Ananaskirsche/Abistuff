@@ -2,6 +2,23 @@
 
 {% block title %}Dashboard{% endblock %}
 
+{% block head %}
+    <style>
+        .kontoinfo {
+            width: 50rem;
+        }
+
+        .kontoinfo > tbody > tr > th {
+            padding-left: 0.5rem;
+            line-height: 2.2rem;
+        }
+
+        .kontoinfo > tbody > tr:nth-of-type(2n+1) {
+            background-color: #ececec;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div class="container">
 
@@ -12,22 +29,26 @@
             <div class="panel-body">
                 Das sind die Kontodaten, wenn jemand das Geld für die Abiballkarten überweisen möchte.
                 <br><br>
-                <table>
+                <table class="kontoinfo">
                     <tbody>
                         <tr>
-                            <td>IBAN:</td>
+                            <th>Empf&auml;nger</th>
+                            <td>Fatih Catalkaya</td>
+                        </tr>
+                        <tr>
+                            <th>IBAN</th>
                             <td>DE62 2505 0000 0201 1257 62</td>
                         </tr>
                         <tr>
-                            <td>BIC:</td>
+                            <th>BIC</th>
                             <td>NOLADE2HXXX</td>
                         </tr>
                         <tr>
-                            <td>Betreff:</td>
+                            <th>Betreff</th>
                             <td>[Anzahl] Abiballkarten [Name des Käufers]</td>
                         </tr>
                         <tr>
-                            <td>Beispiel:&nbsp;&nbsp;&nbsp;</td>
+                            <th>Beispiel</th>
                             <td>3 Abiballkarten Fatih Catalkaya</td>
                         </tr>
                     </tbody>
