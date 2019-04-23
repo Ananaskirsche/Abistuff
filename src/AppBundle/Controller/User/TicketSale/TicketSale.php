@@ -18,7 +18,9 @@ class TicketSale extends Controller
         $repository = $this->getDoctrine()->getRepository(Ticket::class);
         $tickets = $repository->findAll();
 
-        return $this->render("/abistuff/user/ticketsale/ticketsale.html.twig", array('tickets' => $tickets,
-            'soldTickets' => $repository->getAmountSoldTickets()));
+        return $this->render("/abistuff/user/ticketsale/ticketsale.html.twig", array(
+            'tickets' => $tickets,
+            'soldOfficial' => $repository->getAmountSoldOfficialTickets(),
+            'soldAftershow' => $repository->getAmountSoldAftershowTickets()));
     }
 }
