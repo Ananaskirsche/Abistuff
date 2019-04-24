@@ -76,6 +76,7 @@
             new Tablesort(document.getElementById('table'));
         });
 
+
         document.getElementById('edit').onclick = function()
         {
             var checkboxes = Array.from(document.querySelectorAll('input.checkbox'));
@@ -94,8 +95,13 @@
             console.log(checkedId.dataset.id);
 
             //Edit-Seite öffnen
-            window.location = '/user/ticketsale/edit/' + checkedId.dataset.id;
+
+            var url = "{{ path('dashboard') }}";
+            url = url.replace('dashboard', 'ticketsale/edit/' + checkedId.dataset.id);
+
+            window.location = url;
         };
+
 
         document.getElementById('updatePayedCards').onclick = function()
         {
@@ -105,6 +111,7 @@
                 updateCards(idArray, '{{ url('updatePayedCards') }}');
             }
         };
+
 
         document.getElementById('updateHandedCards').onclick =  function()
         {
