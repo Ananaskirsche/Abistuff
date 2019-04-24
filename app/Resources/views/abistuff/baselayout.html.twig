@@ -65,7 +65,7 @@
                         {# ADMIN DASHBOARD #}
                         {% if is_granted("ROLE_ADMIN") %}
                             <li class="dropdown {% if app.request.PathInfo in [path('create_user'), path('list_users')] %}active{% endif %}">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fa fa-server" aria-hidden="true"></i>&emsp;Administration&nbsp;<span class="caret"></span></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fas fa-server" aria-hidden="true"></i>&emsp;Administration&nbsp;<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path("create_user") }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&emsp;Benutzer erstellen</a></li>
                                     <li><a href="{{ path("list_users") }}"><i class="fa fa-group" aria-hidden="true"></i>&emsp;Benutzerliste</a></li>

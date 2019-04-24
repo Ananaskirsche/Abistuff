@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d67f303a-32f4-409d-977b-846d69c3b9af" name="Default" comment="Made table sortable">
+    <list default="true" id="d67f303a-32f4-409d-977b-846d69c3b9af" name="Default" comment="Updated icon class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/ticketsale.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/ticketsale.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/TicketSale.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/TicketSale.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Repository/TicketRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Repository/TicketRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/abistuff/baselayout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/abistuff/baselayout.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/abistuff/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/abistuff/login.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,41 +32,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/ticketsale.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="99" selection-start-line="10" selection-start-column="99" selection-end-line="10" selection-end-column="99" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/TicketRepository.php">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/sale.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="468">
-              <caret line="26" column="49" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="49" />
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Ticket.php">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/SellController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+            <state relative-caret-position="-2952">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
               <folding>
-                <element signature="e#36#68#0#PHP" expanded="true" />
+                <element signature="e#56#84#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/TicketSale.php">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/ticketsale.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="22" column="25" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="25" />
+            <state relative-caret-position="576">
+              <caret line="102" selection-start-line="102" selection-end-line="102" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/dashboard.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="594">
+              <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/baselayout.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="198" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/login.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="34" column="113" selection-start-line="34" selection-start-column="113" selection-end-line="34" selection-end-column="113" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/DashboardController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -97,8 +123,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Resources/views/abistuff/login.html.twig" />
-        <option value="$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/User/UserInterface.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/abistuff/user/kontodetails.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/User/EventsController.php" />
         <option value="$PROJECT_DIR$/app/config/routing.yml" />
@@ -140,14 +164,16 @@
         <option value="$PROJECT_DIR$/app/Resources/views/abistuff/user/bank/bankdetails.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/new_sale.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/ModifyTicketController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/abistuff/baselayout.html.twig" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Ticket.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/SellController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/abistuff/user/dashboard.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/TicketRepository.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/TicketSale.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/sale.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/ticketsale.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/abistuff/baselayout.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/abistuff/login.html.twig" />
       </list>
     </option>
   </component>
@@ -261,6 +287,16 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="abistuff" type="462c0819:PsiDirectoryNode" />
               <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Abistuff" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Abistuff" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="abistuff" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="ticketsale" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Abistuff" type="b2602c69:ProjectViewProjectNode" />
@@ -420,7 +456,8 @@
       <workItem from="1555193323505" duration="1937000" />
       <workItem from="1555271100359" duration="3292000" />
       <workItem from="1555370436957" duration="1851000" />
-      <workItem from="1556036719603" duration="528000" />
+      <workItem from="1556036719603" duration="1535000" />
+      <workItem from="1556140984087" duration="1174000" />
     </task>
     <task id="LOCAL-00001" summary="Updated dependencies, Fixed bug on creator equals null">
       <created>1554975604712</created>
@@ -450,17 +487,38 @@
       <option name="project" value="LOCAL" />
       <updated>1555372016412</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Differ between official and aftershow tickets in ticketsale overview">
+      <created>1556037337980</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1556037337981</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Renamed new_sale.html.twig to sale.html.twig">
+      <created>1556038622528</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1556038622528</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixed routing error">
+      <created>1556141759569</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1556141759569</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125275000" />
+    <option name="totallyTimeSpent" value="127456000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1599" y="0" width="1922" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26741692" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27116826" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -491,29 +549,12 @@
     <MESSAGE value="Updated dependencies, Fixed bug on creator equals null in dashboard, added ticket sale" />
     <MESSAGE value="Merged ModifyTicketController with SellController, added new field 'stammkarte' to ticket entity" />
     <MESSAGE value="Made table sortable" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made table sortable" />
+    <MESSAGE value="Differ between official and aftershow tickets in ticketsale overview" />
+    <MESSAGE value="Renamed new_sale.html.twig to sale.html.twig" />
+    <MESSAGE value="Fixed routing error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed routing error" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/DashboardController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="13" selection-end-column="7" />
-          <folding>
-            <element signature="e#45#104#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/ChangePasswordController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="48" column="79" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="79" />
-          <folding>
-            <element signature="e#45#104#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -712,13 +753,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/ModifyTicketController.php" />
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/new_sale.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="30" selection-start-column="30" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/lib/styles/jquery.dynatable.css" />
     <entry file="file://$PROJECT_DIR$/web/lib/js/jquery.dynatable.js" />
     <entry file="file://$PROJECT_DIR$/composer.lock">
@@ -743,27 +777,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/baselayout.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/TicketSale.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="58" column="100" selection-start-line="58" selection-start-column="100" selection-end-line="58" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/dashboard.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/SellController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-          <folding>
-            <element signature="e#56#84#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="378">
+          <caret line="25" column="1" lean-forward="true" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -784,17 +801,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/TicketSale.php">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/sale.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="22" column="25" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="25" />
+        <state relative-caret-position="468">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/TicketSale/SellController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2952">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#56#84#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/User/DashboardController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/ticketsale/ticketsale.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="99" selection-start-line="10" selection-start-column="99" selection-end-line="10" selection-end-column="99" />
+        <state relative-caret-position="576">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/user/dashboard.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/baselayout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="198" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/abistuff/login.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="34" column="113" selection-start-line="34" selection-start-column="113" selection-end-line="34" selection-end-column="113" />
         </state>
       </provider>
     </entry>

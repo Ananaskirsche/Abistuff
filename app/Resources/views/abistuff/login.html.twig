@@ -8,8 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- Awesome Font-->
-    <link rel="stylesheet" href="{{ asset("lib/styles/font-awesome.min.css") }} ">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset("lib/styles/main.css") }}">
 </head>
 <body>
@@ -24,16 +23,16 @@
         <div class="panel-body">
             <form action="{{ path('login') }}" method="post">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><i class="fa fa-user standard-fa-width" aria-hidden="true"></i></span>
+                    <span class="input-group-addon"><i class="fas fa-user standard-fa-width" aria-hidden="true"></i></span>
                     <input autofocus="" class="form-control" id="UserName" name="_username" placeholder="max.mustermann" type="text" value="{{ last_username }}">
                 </div>
                 <br>
                 <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><i class="fa fa-key standard-fa-width" aria-hidden="true"></i></span>
+                    <span class="input-group-addon"><i class="fas fa-key standard-fa-width" aria-hidden="true"></i></span>
                     <input class="form-control" id="Password" name="_password" placeholder="Passwort" type="password">
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</button>
             </form>
         </div>
     </div>
