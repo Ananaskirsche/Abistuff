@@ -1,133 +1,144 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abistuff - {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ asset('lib/styles/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('lib/styles/bootstrap-theme.min.css') }}">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset("lib/styles/main.css") }}">
-    <script src="{{ asset('lib/js/jquery.min.js') }}"></script>
+
+    <title>Abistuff - {% block title %}{% endblock %}</title>
     {% block head %}{% endblock %}
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h2">Abistuff</span>
 
-            {% if is_granted("ROLE_USER") %}
+        {% if is_granted("ROLE_USER") %}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                {# NAVIGATION HEADER#}
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        {# DASHBOARD #}
-                        <li class="{% if app.request.PathInfo == path('dashboard') %}active{% endif %}"><a href="{{ path("dashboard") }}"><i class="fas fa-columns"></i>&emsp;Dashboard</a></li>
+            <div class="navbar-collapse collapse navbarSupportedContent">
+                <ul class="navbar-nav">
+
+                    {# DASHBOARD #}
+                    <li class="nav-item {% if app.request.PathInfo == path('dashboard') %}active{% endif %}">
+                        <a class="nav-link " href="{{ path("dashboard") }}"><i class="fas fa-columns"></i>&emsp;Dashboard</a>
+                    </li>
 
 
-                        {# KONTODETAILS #}
-                        <li class="dropdown {% if app.request.PathInfo in [path('bankdetails'), path('new_transaction')] %}active{% endif %}">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("bankdetails") }}"><i class="fas fa-euro-sign"></i>&emsp;Kontodetails&nbsp;<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path("bankdetails") }}"><i class="fas fa-euro-sign"></i>&emsp;Kontodetails</a></li>
-                                <li><a href="{{ path("new_transaction") }}"><i class="fas fa-money-bill-wave"></i>&nbsp;Transaktion hinzufügen</a></li>
-                            </ul>
+                    {# KONTODETAILS #}
+                    <li class="nav-item dropdown {% if app.request.PathInfo in [path('bankdetails'), path('new_transaction')] %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" id="navbar-kontodetails-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ path("bankdetails") }}">
+                            <i class="fas fa-euro-sign"></i>&emsp;Kontodetails&nbsp;<span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbar-kontodetails-dropdown">
+                            <a class="dropdown-item" href="{{ path("bankdetails") }}"><i class="fas fa-euro-sign"></i>&emsp;Kontodetails</a>
+                            <a class="dropdown-item" href="{{ path("new_transaction") }}"><i class="fas fa-money-bill-wave"></i>&nbsp;Transaktion hinzufügen</a>
+                        </div>
+                    </li>
+
+
+                    {# KARTENVERKAUF #}
+                    <li class="nav-item dropdown {% if app.request.PathInfo in [path('ticketsale'), path('new_ticketsale')] %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" id="navbar-tickets-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("ticketsale") }}">
+                            <i class="fas fa-store"></i>&emsp;Kartenverkauf&nbsp;<span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbar-tickets-dropdown">
+                            <a class="dropdown-item" href="{{ path("ticketsale") }}"><i class="fas fa-store"></i>&nbsp;Kartenverkauf</a>
+                            <a class="dropdown-item" href="{{ path("new_ticketsale") }}"><i class="far fa-handshake"></i>&nbsp;Karte verkaufen</a>
+                        </div>
+                    </li>
+
+
+                    {# KALENDER #}
+                    <li class="nav-item dropdown {% if app.request.PathInfo in [path('calendar'), path('events')] %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" id="navbar-calendar-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("calendar") }}"><i class="far fa-calendar-alt"></i>&emsp;Kalender&nbsp;<span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="navbar-calendar-dropdown">
+                            <a class="dropdown-item" href="{{ path("calendar") }}"><i class="far fa-calendar-alt"></i>&nbsp;Kalender</a>
+                            <a class="dropdown-item" href="{{ path("new_event") }}"><i class="far fa-calendar-plus"></i>&nbsp;Kalendereintrag hinzufügen</a>
+                        </div>
+                    </li>
+
+
+                    {# ADMIN DASHBOARD #}
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <li class="nav-item dropdown {% if app.request.PathInfo in [path('create_user'), path('list_users')] %}active{% endif %}">
+                            <a class="nav-link dropdown-toggle" id="navbar-admin-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fas fa-server" aria-hidden="true"></i>&emsp;Administration&nbsp;<span class="caret"></span></a>
+                            <div class="dropdown-menu" aria-labelledby="navbar-admin-dropdown">
+                                <a class="dropdown-item" href="{{ path("create_user") }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&emsp;Benutzer erstellen</a>
+                                <a class="dropdown-item" href="{{ path("list_users") }}"><i class="fa fa-group" aria-hidden="true"></i>&emsp;Benutzerliste</a>
+                            </div>
                         </li>
+                    {% endif %}
 
 
-                        {# KARTENVERKAUF #}
-                        <li class="dropdown {% if app.request.PathInfo in [path('ticketsale'), path('new_ticketsale')] %}active{% endif %}">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("ticketsale") }}"><i class="fas fa-store"></i>&emsp;Kartenverkauf&nbsp;<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path("ticketsale") }}"><i class="fas fa-store"></i>&nbsp;Kartenverkauf</a></li>
-                                <li><a href="{{ path("new_ticketsale") }}"><i class="far fa-handshake"></i>&nbsp;Karte verkaufen</a></li>
-                            </ul>
-                        </li>
-
-
-                        {# KALENDER #}
-                        <li class="dropdown {% if app.request.PathInfo in [path('calendar'), path('events')] %}active{% endif %}">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="{{ path("calendar") }}"><i class="far fa-calendar-alt"></i>&emsp;Kalender&nbsp;<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path("calendar") }}"><i class="far fa-calendar-alt"></i>&nbsp;Kalender</a></li>
-                                <li><a href="{{ path("new_event") }}"><i class="far fa-calendar-plus"></i>&nbsp;Kalendereintrag hinzufügen</a></li>
-                            </ul>
-                        </li>
-
-
-                        {# ADMIN DASHBOARD #}
-                        {% if is_granted("ROLE_ADMIN") %}
-                            <li class="dropdown {% if app.request.PathInfo in [path('create_user'), path('list_users')] %}active{% endif %}">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fas fa-server" aria-hidden="true"></i>&emsp;Administration&nbsp;<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path("create_user") }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&emsp;Benutzer erstellen</a></li>
-                                    <li><a href="{{ path("list_users") }}"><i class="fa fa-group" aria-hidden="true"></i>&emsp;Benutzerliste</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
-
-                        <li class="{% if app.request.PathInfo == false %}active{% endif %}"><a href="{{  logout_path() }}"><i class="fas fa-sign-out-alt"></i>&emsp;Ausloggen</a></li>
-                    </ul>
-                    {# /NAVIGATION HEADER#}
-
-                    {# NAVIGATION HEADER DROPDOWN#}
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown {% if app.request.PathInfo == path('change_passwd') %}active{% endif %}">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;{{ app.user.displayname }}&nbsp;<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path("change_passwd") }}"><i class="fas fa-key"></i>&emsp;Passwort ändern</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    {# NAVIGATION HEADER DROPDOWN#}
-                </div>
-            {% else %}
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown {% if app.request.PathInfo == path('change_passwd') %}active{% endif %}">
-                        <a aria-expanded="false" role="button" href="{{ path("login") }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Login</a>
+                    {#LOGOUT#}
+                    <li class="nav-item {% if app.request.PathInfo == false %}active{% endif %}">
+                        <a class="nav-link" href="{{  logout_path() }}"><i class="fas fa-sign-out-alt"></i>&emsp;Ausloggen</a>
                     </li>
                 </ul>
-            {% endif %}
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-        {#FLASH MESSAGES#}
-        {% block flash_messages %}
-            <div class="alerts">
-                {% for type, messages in app.session.flashbag.all() %}
-                    {% for message in messages %}
-                                <div class="">
-                                    <div class="alert alert-{{ type }} alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        {{ message | raw }}
-                                    </div>
-                                </div>
-                    {% endfor %}
-                {% endfor %}
             </div>
-        {% endblock %}
-        {# /FLASH MESSAGES#}
+            <div class="navbar-collapse collapse navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    {# NAVIGATION HEADER DROPDOWN#}
+                    <li class="nav-item dropdown {% if app.request.PathInfo == path('change_passwd') %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" id="navbar-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;{{ app.user.displayname }}&nbsp;<span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="navbar-user-dropdown">
+                            <a class="dropdown-item" href="{{ path("change_passwd") }}"><i class="fas fa-key"></i>&emsp;Passwort ändern</a>
+                        </div>
+                    </li>
+                    {# NAVIGATION HEADER DROPDOWN#}
+                </ul>
+            </div>
 
-        {#SEITEN INHALT#}
-        {% block body %}{% endblock %}
-        {#/SEITEN INHALT#}
-        <hr/>
+
+        {% else %}
+            <ul class="navbar-nav navbar-right ">
+                <li class="nav-item">
+                    <a class="nav-link" aria-expanded="false" role="button" href="{{ path("login") }}">
+                        <i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login
+                    </a>
+                </li>
+            </ul>
+        {% endif %}
+    </nav>
+
+    <br>
+    {#FLASH MESSAGES#}
+    {% block flash_messages %}
+        <div class="alerts">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                        {{ message | raw }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endblock %}
+    {# /FLASH MESSAGES#}
+
+    {#SEITEN INHALT#}
+    {% block body %}{% endblock %}
+    {#/SEITEN INHALT#}
+    <hr/>
     <div class="container">
         <footer>
             <p>Made with <i class="far fa-heart"></i> by Fatih & <a href="https://jloewe.net">Jan</a></p>
         </footer>
     </div>
 
-    <script src="{{ asset('lib/js/bootstrap.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

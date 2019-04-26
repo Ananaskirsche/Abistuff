@@ -34,3 +34,8 @@
 .right-align {
     text-align: right;
 }
+
+.navbar .nav.pull-right {
+    float: right;
+    margin-right: 98px; /*set margin this way in your custom styesheet*/
+}

@@ -59,6 +59,10 @@ class TransactionController extends Controller
                 'required' => true,
                 'trim' => true
             ))
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Speichern',
+                'attr' => array('class' => 'btn-success')
+            ))
             ->getForm();
 
         $form->handleRequest($request);
