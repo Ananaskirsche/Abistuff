@@ -59,6 +59,10 @@ class TransactionController extends Controller
                 'required' => true,
                 'trim' => true
             ))
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Transaktion aktualisieren',
+                'attr' => array('class' => 'btn-success')
+            ))
             ->getForm();
 
         $form->handleRequest($request);
