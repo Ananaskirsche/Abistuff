@@ -14,6 +14,16 @@ class DashboardController extends Controller
      */
     public function showAction()
     {
-        return $this->render("/abistuff/user/dashboard.html.twig", array("isAdmin" => false,));
+        return $this->render("/abistuff/user/dashboard.html.twig");
+    }
+
+
+    /**
+     * @Route("/user/")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function indexAction()
+    {
+        return $this->render("/abistuff/user/dashboard.html.twig");
     }
 }

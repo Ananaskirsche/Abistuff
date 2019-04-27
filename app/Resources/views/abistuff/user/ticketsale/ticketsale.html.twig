@@ -9,7 +9,29 @@
 {% block body %}
     <div class="container">
         Es wurden bereits {{ soldOfficial }} 'offizielle' Karten und {{ soldAftershow }} Laufkarten verkauft.
-
+        <br>
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Filter
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fas fa-search"></i></span>
+                            <input type="text" id="search" placeholder="K&auml;ufer suchen" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-8">
+                        <label class="pull-right">
+                            <input type="checkbox" id="hideFinishedTickets">
+                            Abgeschlossene Käufe ausblenden
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <table class="table table-bordered table-responsive" id="table">
             <thead>
                 <tr>
@@ -73,8 +95,53 @@
     <script type="application/javascript">
 
         $(document).ready(function() {
+            document.getElementById('hideFinishedTickets').checked = false;
             new Tablesort(document.getElementById('table'));
         });
+
+        var table = document.getElementById("table");
+        var tr = table.getElementsByTagName("tr");
+        document.getElementById('search').onkeyup = function () {
+            var filter, td, i, txtValue;
+            filter = this.value.toUpperCase();
+
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+        };
+
+
+        document.getElementById('hideFinishedTickets').onchange = function (ev)
+        {
+            var checked = ev.target.checked;
+            var tableRows = document.getElementsByTagName('tr');
+            for(var i = 0; i < tableRows.length; i++)
+            {
+                var curRow = tableRows[i];
+                if(curRow.classList.contains('success'))
+                {
+                    if(checked)
+                    {
+                        curRow.style.display = 'none';
+                    }
+                    else
+                    {
+                        curRow.style.display = '';
+                    }
+
+                }
+            }
+        };
 
 
         document.getElementById('edit').onclick = function()
@@ -138,6 +205,7 @@
 
             return idArray;
         }
+
 
         function updateCards(idArray, url)
         {
