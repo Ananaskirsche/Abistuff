@@ -260,7 +260,6 @@ class SellController extends Controller
             $ticket->setBezahltAm($data['bezahltAm']);
             $ticket->setBarBezahlt($data['barBezahlt']);
             $ticket->setStammkarte($data['stammkarte']);
-            $ticket->setCreatedBy($this->get('security.token_storage')->getToken()->getUser());
 
             //In die DB schreiben
             $em = $this->getDoctrine()->getManager();
