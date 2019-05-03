@@ -7,12 +7,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class CalendarController extends Controller
+class CalendarViewController extends Controller
 {
     /**
      * @Route("/user/calendar", name="events")
      */
-    public function showAction(Request $request)
+    public function showAction()
     {
         return $this->render("/abistuff/user/events/calendar.html.twig");
     }

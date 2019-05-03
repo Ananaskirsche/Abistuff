@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 
-class TransactionController extends Controller
+class TransactionCrudController extends Controller
 {
     /**
      * @Route("/user/create_transaction", name="new_transaction")

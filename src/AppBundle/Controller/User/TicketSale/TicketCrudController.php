@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SellController extends Controller
+class TicketCrudController extends Controller
 {
     /**
      * @Route("/user/ticketsale/new", name="new_ticketsale")

@@ -4,7 +4,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class BankTransactionRepository extends EntityRepository
+class TransactionRepository extends EntityRepository
 {
     public function getTransactionValueSum()
     {

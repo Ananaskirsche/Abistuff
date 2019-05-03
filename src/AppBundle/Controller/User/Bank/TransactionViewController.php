@@ -8,12 +8,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class BankController extends Controller
+class TransactionViewController extends Controller
 {
     /**
      * @Route("/user/bankdetails", name="bankdetails")
      */
-    public function showAction(Request $request, UserInterface $user)
+    public function showAction()
     {
         $repository = $this->getDoctrine()->getRepository(BankTransaction::class);
         $transactions = $repository->findBy(array(), array('date' => 'DESC'));
