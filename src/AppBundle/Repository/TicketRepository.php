@@ -8,10 +8,35 @@ use Doctrine\ORM\EntityRepository;
 
 class TicketRepository extends EntityRepository
 {
-    public function getTickets()
+    public function getTickets(bool $hideFinishedTickets, $searchKaeufer)
     {
-        $qb = $this->getEntityManager()->createQuery('SELECT t FROM AppBundle:Ticket t ORDER BY t.kaeufer ASC');
-        return $qb->getResult();
+        //QueryBuilder
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+        //Standart wonach wir suchen
+        $queryBuilder
+            ->select('t.id, t.kaeufer, t.anzahl, t.barBezahlt, t.stammkarte, t.erhaltenAm, '.
+                     't.bezahltAm, u.displayname AS seller')
+            ->from('AppBundle:Ticket', 't');
+
+        //Sollen abgeschlossene Ticketverkäufe angezeigt werden?
+        if($hideFinishedTickets)
+        {
+            $queryBuilder->andWhere('t.erhaltenAm IS NULL OR t.bezahltAm IS NULL');
+        }
+
+        //Soll Gesucht werden?
+        if($searchKaeufer != null)
+        {
+            $queryBuilder->andWhere('t.kaeufer LIKE :searchKaeufer');
+            $queryBuilder->setParameter('searchKaeufer', '%' . $searchKaeufer . '%');
+        }
+
+        //Join um das ganze Benutzerobjekt nur durch den Benutzernamen ersetzen zu können
+        $queryBuilder->join('t.createdBy', 'u');
+        $queryBuilder->orderBy('t.kaeufer', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
 

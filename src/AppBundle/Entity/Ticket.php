@@ -54,7 +54,7 @@ class Ticket
     private $stammkarte;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="LAZY")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * @Assert\NotBlank()
      */

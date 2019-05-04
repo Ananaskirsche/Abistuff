@@ -13,7 +13,7 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-                Filter
+                <i class="fas fa-filter"></i>  <b>Filter</b>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -21,6 +21,10 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fas fa-search"></i></span>
                             <input type="text" id="search" placeholder="K&auml;ufer suchen" class="form-control">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" id="deleteBtn"><i class="far fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-default" id="searchBtn">Suchen</button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-8">
@@ -45,42 +49,22 @@
                     <th>Verkäufer</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for ticket in tickets %}
-
-                    {% if null in [ticket.erhaltenAm, ticket.bezahltAm] %}
-                        {% if (ticket.erhaltenAm is not null) and (ticket.bezahltAm is null or empty) %}
-                            {% set color = "danger" %}
-                        {% else %}
-                            {% set color = "warning" %}
-                        {% endif %}
-                    {% else %}
-                        {% set color = "success" %}
-                    {% endif %}
-
-
-
-                    <tr class="{{ color }}">
-                        <td><input class="checkbox" type="checkbox" data-id="{{ ticket.id }}"></td>
-                        <td>{{ ticket.kaeufer }}</td>
-                        <td>{{ ticket.anzahl }}</td>
-                        <td>
-                            {% if ticket.erhaltenAm is not null%}
-                                {{ ticket.erhaltenAm|date('d.m.Y') }}
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if ticket.bezahltAm is not null%}
-                                {{ ticket.bezahltAm|date('d.m.Y') }}
-                            {% endif %}
-                        </td>
-                        <td>{{ ticket.barBezahlt ? 'Ja' : 'Nein'}}</td>
-                        <td>{{ ticket.stammkarte ? 'Offizielle Karte' : 'Laufkarte' }}</td>
-                        <td>{{ ticket.createdBy.displayname }}</td>
-                    </tr>
-                {% endfor %}
+            <tbody id="tbody">
             </tbody>
         </table>
+
+        <template id="tableRowTemplate">
+            <tr class="ticket-row">
+                <td><input class="checkbox ticket-checkbox" type="checkbox" data-id=""></td>
+                <td class="ticket-kaeufer"></td>
+                <td class="ticket-anzahl"></td>
+                <td class="ticket-erhaltenAm"></td>
+                <td class="ticket-bezahltAm"></td>
+                <td class="ticket-barBezahlt"></td>
+                <td class="ticket-stammkarte"></td>
+                <td class="ticket-seller"></td>
+            </tr>
+        </template>
 
         <div style="text-align: right;">
             <a id="edit" class="btn btn-default"><i class="far fa-edit"></i>&nbsp;&nbsp;Eintrag bearbeiten</a>
@@ -94,54 +78,190 @@
     <script type="text/javascript" src="{{ asset('lib/js/tablesort.min.js') }}"></script>
     <script type="application/javascript">
 
-        $(document).ready(function() {
-            document.getElementById('hideFinishedTickets').checked = false;
-            new Tablesort(document.getElementById('table'));
-        });
-
-        var table = document.getElementById("table");
-        var tr = table.getElementsByTagName("tr");
-        document.getElementById('search').onkeyup = function () {
-            var filter, td, i, txtValue;
-            filter = this.value.toUpperCase();
-
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
+        function loadTableData(hideFinishedTickets, searchTerm)
+        {
+            //Tabelle leeren
+            var tbody = document.getElementById('tbody');
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
             }
 
+            dataOptions = {
+                hideFinishedTickets: hideFinishedTickets,
+                searchTerm: searchTerm
+            };
+
+            //Tabellendaten laden
+            $.ajax({
+                url: "{{ absolute_url('ticketdata')|raw }}",
+                cache: true,
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(dataOptions),
+                method: 'POST',
+                success: function (response) {
+                    buildTableFromJson(response);
+                }
+            });
+        }
+
+
+
+        function buildTableFromJson(tableData)
+        {
+            var tableBody = document.getElementById('tbody');
+
+            var tableDataLength = tableData.length;
+            for (var i = 0; i < tableDataLength; i++)
+            {
+                //Get Current data row
+                var curTableDataRow = tableData[i];
+
+                //Template Laden
+                var templateRow = document.getElementById('tableRowTemplate').content.cloneNode(true);
+
+                //Farbe der Zeile setzen
+                if(curTableDataRow.bezahltAm === null || curTableDataRow.erhaltenAm === null )
+                {
+                    if(curTableDataRow.bezahltAm === null && curTableDataRow.erhaltenAm !== null)
+                    {
+                        templateRow.querySelector('tr').classList.add('danger');
+                    }
+                    else
+                    {
+                        templateRow.querySelector('tr').classList.add('warning');
+                    }
+                }
+                else
+                {
+                    templateRow.querySelector('tr').classList.add('success');
+                }
+
+                //ID in der Checkbox setzen
+                templateRow.querySelector('.ticket-checkbox').setAttribute('data-id', curTableDataRow.id);
+
+                //Textwerte aus dem Array nehmen und einsetzen
+                templateRow.querySelector('.ticket-kaeufer').innerHTML = curTableDataRow.kaeufer;
+                templateRow.querySelector('.ticket-anzahl').innerHTML = curTableDataRow.anzahl;
+                templateRow.querySelector('.ticket-seller').innerHTML = curTableDataRow.seller;
+
+                //BezahltAm-Datum umwandeln
+                if(curTableDataRow.bezahltAm !== null)
+                {
+                    var dateStr = curTableDataRow.bezahltAm.date;
+
+                    dateStr = dateStr.slice(0, 10);
+                    var dateArr = dateStr.split('-');
+                    dateStr = dateArr[2] + '.' + dateArr[1] + '.' + dateArr[0];
+
+                    templateRow.querySelector('.ticket-bezahltAm').innerHTML = dateStr;
+                }
+
+                //ErhaltenAm-Datum umwandeln
+                if(curTableDataRow.erhaltenAm !== null)
+                {
+                    dateStr = curTableDataRow.erhaltenAm.date;
+
+                    dateStr = dateStr.slice(0, 10);
+                    dateArr = dateStr.split('-');
+                    dateStr = dateArr[2] + '.' + dateArr[1] + '.' + dateArr[0];
+
+                    templateRow.querySelector('.ticket-erhaltenAm').innerHTML = dateStr;
+                }
+
+                //Bar bezahlt umwandeln
+                if(curTableDataRow.barBezahlt)
+                {
+                    templateRow.querySelector('.ticket-barBezahlt').innerHTML = "Ja";
+                }
+                else
+                {
+                    templateRow.querySelector('.ticket-barBezahlt').innerHTML = "Nein";
+                }
+
+                //Stammkartentext umwandeln
+                if(curTableDataRow.stammkarte)
+                {
+                    templateRow.querySelector('.ticket-stammkarte').innerHTML = "Offizielle Karte";
+                }
+                else
+                {
+                    templateRow.querySelector('.ticket-stammkarte').innerHTML = "Laufkarte";
+                }
+
+                //Template der Tabelle hinzufügen
+                tableBody.appendChild(templateRow);
+            }
+        }
+
+
+        $(document).ready(function() {
+            //Tabelle und Filter initalisieren
+            document.getElementById('hideFinishedTickets').checked = true;
+            document.getElementById('search').value = "";
+            new Tablesort(document.getElementById('table'));
+
+            loadTableData(true, null);
+        });
+
+
+        document.getElementById('deleteBtn').onclick = function ()
+        {
+            document.getElementById('search').value = "";
         };
+
+
+        document.getElementById('searchBtn').onclick = function ()
+        {
+            //Set hideFinishedTickets to false
+            var hideFinishedTickets = false;
+            if(document.getElementById('search').value === "")
+            {
+                hideFinishedTickets = document.getElementById('hideFinishedTickets').checked;
+            }
+            else
+            {
+                document.getElementById('hideFinishedTickets').checked = false;
+                hideFinishedTickets = false;
+            }
+
+            loadTableData(hideFinishedTickets, $('#search').val() );
+        };
+
+
+
+        document.getElementById('search').onkeypress = function(e) {
+            var event = e || window.event;
+            var charCode = event.which || event.keyCode;
+
+            if ( charCode == '13' )
+            {
+                //Set hideFinishedTickets to false
+                var hideFinishedTickets = false;
+                if(document.getElementById('search').value === "")
+                {
+                    hideFinishedTickets = document.getElementById('hideFinishedTickets').checked;
+                }
+                else
+                {
+                    document.getElementById('hideFinishedTickets').checked = false;
+                    hideFinishedTickets = false;
+                }
+
+                loadTableData(hideFinishedTickets, $('#search').val() );
+
+                return false;
+            }
+        };
+
+
 
 
         document.getElementById('hideFinishedTickets').onchange = function (ev)
         {
-            var checked = ev.target.checked;
-            var tableRows = document.getElementsByTagName('tr');
-            for(var i = 0; i < tableRows.length; i++)
-            {
-                var curRow = tableRows[i];
-                if(curRow.classList.contains('success'))
-                {
-                    if(checked)
-                    {
-                        curRow.style.display = 'none';
-                    }
-                    else
-                    {
-                        curRow.style.display = '';
-                    }
-
-                }
-            }
+            loadTableData(ev.target.checked, $('#search').val() );
         };
+
 
 
         document.getElementById('edit').onclick = function()
@@ -170,6 +290,7 @@
         };
 
 
+
         document.getElementById('updatePayedCards').onclick = function()
         {
             var idArray = getCheckedIds();
@@ -180,6 +301,7 @@
         };
 
 
+
         document.getElementById('updateHandedCards').onclick =  function()
         {
             var idArray = getCheckedIds();
@@ -188,6 +310,7 @@
                 updateCards(idArray, '{{ url('updateHandedCards') }}');
             }
         };
+
 
 
         function getCheckedIds()
@@ -205,6 +328,7 @@
 
             return idArray;
         }
+
 
 
         function updateCards(idArray, url)
