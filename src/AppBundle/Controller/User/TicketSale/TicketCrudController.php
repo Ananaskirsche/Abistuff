@@ -8,6 +8,8 @@ use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -112,91 +114,6 @@ class TicketCrudController extends Controller
     }
 
 
-    /**
-     * @Route("/user/ticketsale/payedUpdate", name="updatePayedCards")
-     * @Method({"GET","POST"})
-     */
-    public function updatePayedCards(Request $request)
-    {
-        try
-        {
-            //JSON Dekodieren und Ticket Repository holen
-            $json = json_decode($request->getContent());
-            $em = $this->getDoctrine()->getManager();
-            $ticketRepo = $this->getDoctrine()->getRepository(Ticket::class);
-
-            //Durch die gesendeten Ids iterieren
-            foreach($json as $ticketId)
-            {
-                $ticket = $ticketRepo->find($ticketId);
-
-                //Wenn die ID nicht gefunden wurde, dann überspringen
-                if(!$ticket)
-                {
-                    continue;
-                }
-
-                if($ticket->getBezahltAm() === null)
-                {
-                    //TODO: E-Mail versenden, dass Geld erhalten worden ist
-
-                    $ticket->setBezahltAm(new DateTime());
-                    $em->flush();
-                }
-
-                $em->flush();
-            }
-
-        }
-        catch (Exception $ex)
-        {
-            return new Response('An error occured', Response::HTTP_BAD_REQUEST, ['content-type' => 'text/plain']);
-        }
-
-        return new JsonResponse(array('status' => 'OK'));
-    }
-
-
-    /**
-     * @Route("/user/ticketsale/handedUpdate", name="updateHandedCards")
-     * @Method({"GET","POST"})
-     */
-    public function updateHandedCards(Request $request)
-    {
-        try
-        {
-            //JSON Dekodieren und Ticket Repository holen
-            $json = json_decode($request->getContent());
-            $em = $this->getDoctrine()->getManager();
-            $ticketRepo = $this->getDoctrine()->getRepository(Ticket::class);
-
-            //Durch die gesendeten Ids iterieren
-            foreach($json as $ticketId)
-            {
-                $ticket = $ticketRepo->find($ticketId);
-
-                //Wenn die ID nicht gefunden wurde, dann überspringen
-                if(!$ticket)
-                {
-                    continue;
-                }
-
-                if($ticket->getErhaltenAm() === null)
-                {
-                    $ticket->setErhaltenAm(new DateTime());
-                    $em->flush();
-                }
-            }
-
-        }
-        catch (Exception $ex)
-        {
-            return new Response('An error occured', Response::HTTP_BAD_REQUEST, ['content-type' => 'text/plain']);
-        }
-
-        return new JsonResponse(array('status' => 'OK'));
-    }
-
 
     /**
      * @Route("/user/ticketsale/edit/{id}", name="edit_ticket")
@@ -290,5 +207,109 @@ class TicketCrudController extends Controller
         }
 
         return $this->render('/abistuff/user/ticketsale/sale.html.twig', array('form' => $form->createView()));
+    }
+
+
+
+    /**
+     * @Route("/user/ticketsale/payedUpdate", name="updatePayedCards")
+     * @Method({"GET","POST"})
+     */
+    public function updatePayedCards(Request $request, Swift_Mailer $mailer)
+    {
+        try
+        {
+            //JSON Dekodieren und Ticket Repository holen
+            $json = json_decode($request->getContent());
+            $em = $this->getDoctrine()->getManager();
+            $ticketRepo = $this->getDoctrine()->getRepository(Ticket::class);
+
+            //Durch die gesendeten Ids iterieren
+            foreach($json as $ticketId)
+            {
+                $ticket = $ticketRepo->find($ticketId);
+
+                //Wenn die ID nicht gefunden wurde, dann überspringen
+                if(!$ticket)
+                {
+                    continue;
+                }
+
+                if($ticket->getBezahltAm() == null)
+                {
+                    //Email versenden, wenn der Käufer die Tickets noch nicht erhalten hat und eine Email angegeben ist
+                    if($ticket->getErhaltenAm() == null && $ticket->getNotifyEmail() != null)
+                    {
+                        //TODO: E-Mail versenden, dass Geld erhalten worden ist
+                        $email = new Swift_Message();
+                        $email->setFrom('abistuff@web.de', 'Abiball Ticketverkauf');
+                        $email->setTo($ticket->getNotifyEmail());
+                        $email->setSubject('Abistuff Zahlungbenachrichtigung');
+                        $email->setBody($this->renderView('/abistuff/emails/payment_received.email.twig', array(
+                            'name' => $ticket->getKaeufer(),
+                            'anzahl' => $ticket->getAnzahl(),
+                            'stammkarte' => $ticket->getStammkarte()
+                        )));
+
+                        $mailer->send($email);
+                    }
+
+                    //Ticket in der DB updaten
+                    $ticket->setBezahltAm(new DateTime());
+                    $em->flush();
+                }
+
+                $em->flush();
+            }
+
+        }
+        catch (Exception $ex)
+        {
+            return new Response('An error occured', Response::HTTP_BAD_REQUEST, ['content-type' => 'text/plain']);
+        }
+
+        return new JsonResponse(array('status' => 'OK'));
+    }
+
+
+
+    /**
+     * @Route("/user/ticketsale/handedUpdate", name="updateHandedCards")
+     * @Method({"GET","POST"})
+     */
+    public function updateHandedCards(Request $request)
+    {
+        try
+        {
+            //JSON Dekodieren und Ticket Repository holen
+            $json = json_decode($request->getContent());
+            $em = $this->getDoctrine()->getManager();
+            $ticketRepo = $this->getDoctrine()->getRepository(Ticket::class);
+
+            //Durch die gesendeten Ids iterieren
+            foreach($json as $ticketId)
+            {
+                $ticket = $ticketRepo->find($ticketId);
+
+                //Wenn die ID nicht gefunden wurde, dann überspringen
+                if(!$ticket)
+                {
+                    continue;
+                }
+
+                if($ticket->getErhaltenAm() === null)
+                {
+                    $ticket->setErhaltenAm(new DateTime());
+                    $em->flush();
+                }
+            }
+
+        }
+        catch (Exception $ex)
+        {
+            return new Response('An error occured', Response::HTTP_BAD_REQUEST, ['content-type' => 'text/plain']);
+        }
+
+        return new JsonResponse(array('status' => 'OK'));
     }
 }

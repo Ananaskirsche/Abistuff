@@ -1,0 +1,28 @@
+{% spaceless %}
+{% if anzahl == 1 %}
+    {% set menge = 'eine' %}
+    {% if stammkarte == true %}
+        {% set karte = "Abiballkarte" %}
+    {% else %}
+        {% set karte = "Laufkarte" %}
+    {% endif %}
+{% else %}
+    {% set menge = anzahl %}
+    {% if stammkarte == true %}
+        {% set karte = "Abiballkarten" %}
+    {% else %}
+        {% set karte = "Laufkarten" %}
+    {% endif %}
+{% endif %}
+Hallo{% endspaceless %} {{ name }},
+
+wir haben deine Zahlung für {{ menge }} {{ karte }} erhalten.
+Du kannst sie nun bei jemandem in deiner Nähe abholen. Falls du noch fragen hast, kannst du dich jederzeit
+an uns wenden.
+
+Mit freundlichen Grüßen,
+
+Fatih Catalkaya
+
+
+Hinweis: Diese Nachricht wurde automatisch generiert.
