@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,6 +32,12 @@ class TicketCrudController extends Controller
                 'label' => 'Name des Käufers (bitte mit Nachnamen)',
                 'attr' => array('placeholder' => 'Manuel Neuer'),
                 'required' => true,
+                'trim' => true
+            ))
+            ->add('notifyEmail', EmailType::class, array(
+                'label' => 'E-Mail zur Benachrichtigung bei Zahlungseingang',
+                'attr' => array('placeholder' => 'Optional'),
+                'required' => false,
                 'trim' => true
             ))
             ->add('anzahl', NumberType::class, array(
@@ -83,6 +90,7 @@ class TicketCrudController extends Controller
             //Neues Objekt erstellen
             $ticket = new Ticket();
             $ticket->setKaeufer($data['kaeufer']);
+            $ticket->setNotifyEmail($data['notifyEmail']);
             $ticket->setAnzahl($data['anzahl']);
             $ticket->setErhaltenAm($data['erhaltenAm']);
             $ticket->setBezahltAm($data['bezahltAm']);
@@ -130,6 +138,8 @@ class TicketCrudController extends Controller
 
                 if($ticket->getBezahltAm() === null)
                 {
+                    //TODO: E-Mail versenden, dass Geld erhalten worden ist
+
                     $ticket->setBezahltAm(new DateTime());
                     $em->flush();
                 }
@@ -203,6 +213,13 @@ class TicketCrudController extends Controller
                 'trim' => true,
                 'data' => $ticket->getKaeufer()
             ))
+            ->add('notifyEmail', EmailType::class, array(
+                'label' => 'E-Mail zur Benachrichtigung bei Zahlungseingang',
+                'attr' => array('placeholder' => 'Optional'),
+                'required' => false,
+                'trim' => true,
+                'data' => $ticket->getNotifyEmail()
+            ))
             ->add('anzahl', NumberType::class, array(
                 'label' => "Anzahl der gekauften Karten",
                 'attr' => array('placeholder' => "3"),
@@ -255,6 +272,7 @@ class TicketCrudController extends Controller
             $data = $form->getData();
 
             $ticket->setKaeufer($data['kaeufer']);
+            $ticket->setNotifyEmail($data['notifyEmail']);
             $ticket->setAnzahl($data['anzahl']);
             $ticket->setErhaltenAm($data['erhaltenAm']);
             $ticket->setBezahltAm($data['bezahltAm']);

@@ -54,6 +54,12 @@ class Ticket
     private $stammkarte;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Email()
+     */
+    private $notifyEmail;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", fetch="LAZY")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      * @Assert\NotBlank()
@@ -170,6 +176,22 @@ class Ticket
     public function setBarBezahlt($barBezahlt)
     {
         $this->barBezahlt = $barBezahlt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotifyEmail()
+    {
+        return $this->notifyEmail;
+    }
+
+    /**
+     * @param mixed $notifyEmail
+     */
+    public function setNotifyEmail($notifyEmail)
+    {
+        $this->notifyEmail = $notifyEmail;
     }
 
     /**
