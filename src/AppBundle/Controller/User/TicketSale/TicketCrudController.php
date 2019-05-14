@@ -23,10 +23,29 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TicketCrudController extends Controller
 {
+    private function sendPaymentReceivedEmail(Ticket $ticket, Swift_Mailer $mailer)
+    {
+        if($ticket->getNotifyEmail() != null)
+        {
+            $email = new Swift_Message();
+            $email->setFrom('abistuff@web.de', 'Abiball Ticketverkauf');
+            $email->setTo($ticket->getNotifyEmail());
+            $email->setSubject('Abistuff Zahlungbenachrichtigung');
+            $email->setBody($this->renderView('/abistuff/emails/payment_received.email.twig', array(
+                'name' => $ticket->getKaeufer(),
+                'anzahl' => $ticket->getAnzahl(),
+                'stammkarte' => $ticket->getStammkarte()
+            )));
+
+            $mailer->send($email);
+        }
+    }
+
+
     /**
      * @Route("/user/ticketsale/new", name="new_ticketsale")
      */
-    public function showAction(Request $request)
+    public function showAction(Request $request, Swift_Mailer $mailer)
     {
         $form = $this->createFormBuilder()
             ->setMethod("post")
@@ -104,6 +123,16 @@ class TicketCrudController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();
+
+            //Ggf Email versenden, dass Zahlung erhalten worden ist
+            if($ticket->getErhaltenAm() == null && $ticket->getBezahltAm() != null)
+            {
+                if(!$ticket->getBarBezahlt())
+                {
+                    //Email versenden
+                    $this->sendPaymentReceivedEmail($ticket, $mailer);
+                }
+            }
 
             $this->addFlash('success', 'Verkauf wurden gespeichert!');
 
@@ -240,18 +269,7 @@ class TicketCrudController extends Controller
                     //Email versenden, wenn der Käufer die Tickets noch nicht erhalten hat und eine Email angegeben ist
                     if($ticket->getErhaltenAm() == null && $ticket->getNotifyEmail() != null)
                     {
-                        //TODO: E-Mail versenden, dass Geld erhalten worden ist
-                        $email = new Swift_Message();
-                        $email->setFrom('abistuff@web.de', 'Abiball Ticketverkauf');
-                        $email->setTo($ticket->getNotifyEmail());
-                        $email->setSubject('Abistuff Zahlungbenachrichtigung');
-                        $email->setBody($this->renderView('/abistuff/emails/payment_received.email.twig', array(
-                            'name' => $ticket->getKaeufer(),
-                            'anzahl' => $ticket->getAnzahl(),
-                            'stammkarte' => $ticket->getStammkarte()
-                        )));
-
-                        $mailer->send($email);
+                        $this->sendPaymentReceivedEmail($ticket, $mailer);
                     }
 
                     //Ticket in der DB updaten
